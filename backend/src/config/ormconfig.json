@@ -1,0 +1,7 @@
+{
+    "type": "sqlite",
+    "database": "src/database/portfolio.sqlite",
+    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "synchronize": true
+  }
+  
