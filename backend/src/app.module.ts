@@ -5,8 +5,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProfileModule } from './profile/profile.module';
 import { ProjectModule } from './project/project.module';
+import { EducationModule } from './education/education.module';
 import { Profile } from './profile/entities/profile.entity';
 import { Project } from './project/entities/project.entity';
+import { Education } from './education/entities/education.entity';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
@@ -18,11 +20,12 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'src/database/portfolio.db',
-      entities: [Profile, Project], // Added the entities here
+      entities: [Profile, Project, Education], // Added the entities here
       synchronize: true,
     }),
     ProfileModule,
     ProjectModule,
+    EducationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
