@@ -14,6 +14,8 @@ import { CourseModule } from './courses/courses.module';
 import { ExperienceModule } from './experience/experience.module';
 import { Education } from './education/entities/education.entity';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { SkillsModule } from './skills/skills.module';
+import { Skill } from './skills/entities/skill.entity';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'src/database/portfolio.db',
-      entities: [Profile, Project, Education, Experience, Course], // Added the entities here
+      entities: [Profile, Project, Education, Experience, Course, Skill], // Added the entities here
       synchronize: true,
     }),
     ProfileModule,
@@ -32,6 +34,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     EducationModule,
     ExperienceModule,
     CourseModule,
+    SkillsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

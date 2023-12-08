@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { EducationService } from './education.service';
 import { Education } from './entities/education.entity';
-import { CreateEducationInput } from './dto/education.dto';
+import { CreateEducationInput } from './dto/create-educations.input';
 
 @Resolver(() => Education)
 export class EducationResolver {
