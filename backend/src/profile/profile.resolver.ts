@@ -1,6 +1,7 @@
 import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
 import { ProfileService } from './profile.service';
 import { Profile } from './entities/profile.entity';
+import { UpdateProfileInput } from './dto/create-profile.input';
 import { CreateProfileInput } from './dto/create-profile.input';
 
 @Resolver(() => Profile)
@@ -25,5 +26,12 @@ export class ProfileResolver {
   @Mutation(() => Boolean)
   async deleteProfile(@Args('id') id: number): Promise<boolean> {
     return this.profileService.remove(id);
+  }
+
+  @Mutation(() => Profile)
+  async updateProfile(
+    @Args('updateProfileInput') updateProfileInput: UpdateProfileInput,
+  ): Promise<Profile> {
+    return this.profileService.update(updateProfileInput);
   }
 }

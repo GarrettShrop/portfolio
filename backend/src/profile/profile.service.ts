@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Profile } from './entities/profile.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateProfileInput } from './dto/create-profile.input';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -25,5 +26,13 @@ export class ProfileService {
   async remove(id: number): Promise<boolean> {
     const result = await this.profileRepository.delete(id);
     return result.affected > 0;
+  }
+
+  async update(updateProfileInput: UpdateProfileInput): Promise<Profile> {
+    const { id, ...updateData } = updateProfileInput;
+    await this.profileRepository.update(id, updateData);
+    return this.profileRepository.findOne({
+      where: { id },
+    });
   }
 }
