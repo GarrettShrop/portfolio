@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Skill } from './entities/skill.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateSkillInput } from './dto/create-skill.input';
+import { CreateSkillInput, UpdateSkillInput } from './dto/create-skill.input';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -37,5 +37,17 @@ export class SkillService {
     });
 
     return this.skillsRepository.save(skills); // Assuming you have a skill repository
+  }
+
+  async update(updateSkillInput: UpdateSkillInput): Promise<Skill> {
+    const skill = await this.skillsRepository.findOne({
+      where: { id: updateSkillInput.id },
+    });
+    if (!skill) {
+      throw new Error('Skill not found');
+    }
+
+    Object.assign(skill, updateSkillInput);
+    return this.skillsRepository.save(skill);
   }
 }

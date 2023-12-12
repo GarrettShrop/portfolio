@@ -1,4 +1,4 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateProjectInput {
@@ -11,8 +11,8 @@ export class CreateProjectInput {
   @Field()
   description: string;
 
-  @Field()
-  technologiesUsed: string;
+  @Field(() => [String])
+  skillNames: string[];
 
   @Field()
   role: string;
@@ -35,8 +35,8 @@ export class UpdateProjectInput {
   @Field({ nullable: true })
   description?: string;
 
-  @Field({ nullable: true })
-  technologiesUsed?: string;
+  @Field(() => [String], { nullable: true })
+  skillNames?: string[];
 
   @Field({ nullable: true })
   role?: string;

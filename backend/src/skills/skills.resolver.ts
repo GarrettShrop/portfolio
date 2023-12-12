@@ -1,8 +1,11 @@
 import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
 import { SkillService } from './skills.service';
 import { Skill } from './entities/skill.entity';
-import { CreateSkillInput } from './dto/create-skill.input';
-import { CreateSkillsInput } from './dto/create-skill.input';
+import {
+  CreateSkillInput,
+  UpdateSkillInput,
+  CreateSkillsInput,
+} from './dto/create-skill.input';
 
 @Resolver(() => Skill)
 export class SkillResolver {
@@ -31,5 +34,12 @@ export class SkillResolver {
   @Mutation(() => [Skill])
   async addSkills(@Args('input') input: CreateSkillsInput): Promise<Skill[]> {
     return this.skillsService.createMany(input.skills);
+  }
+
+  @Mutation(() => Skill)
+  async updateSkill(
+    @Args('updateSkillInput') updateSkillInput: UpdateSkillInput,
+  ): Promise<Skill> {
+    return this.skillsService.update(updateSkillInput);
   }
 }
