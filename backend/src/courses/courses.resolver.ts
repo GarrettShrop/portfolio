@@ -2,6 +2,7 @@ import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
 import { CourseService } from './courses.service';
 import { Course } from './entities/courses.entity';
 import { CreateCourseInput } from './dto/create-courses.input';
+import { UpdateCourseInput } from './dto/create-courses.input';
 
 @Resolver(() => Course)
 export class CourseResolver {
@@ -25,5 +26,12 @@ export class CourseResolver {
   @Mutation(() => Boolean)
   async deleteCourse(@Args('id') id: number): Promise<boolean> {
     return this.coursesService.remove(id);
+  }
+
+  @Mutation(() => Course)
+  async updateCourse(
+    @Args('updateCourseInput') updateCourseInput: UpdateCourseInput,
+  ): Promise<Course> {
+    return this.coursesService.update(updateCourseInput);
   }
 }
